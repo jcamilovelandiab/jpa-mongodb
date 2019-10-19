@@ -26,7 +26,9 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compileOnly('org.projectlombok:lombok:1.18.10')
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
+    implementation('org.springframework.boot:spring-boot-starter-data-rest')
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
-
