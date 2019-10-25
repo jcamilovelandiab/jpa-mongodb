@@ -1,5 +1,7 @@
 package eci.cosw;
 
+import eci.cosw.data.model.User;
+import eci.cosw.data.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +19,7 @@ public class Application implements CommandLineRunner {
 
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
 
     public static void main(String[] args) {
@@ -26,25 +28,21 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfiguration.class);
-        MongoOperations mongoOperation = (MongoOperations) applicationContext.getBean("mongoTemplate");
 
-        customerRepository.deleteAll();
+        userRepository.deleteAll();
 
-        customerRepository.save(new Customer("Alice", "Smith"));
-        customerRepository.save(new Customer("Bob", "Marley"));
-        customerRepository.save(new Customer("Jimmy", "Page"));
-        customerRepository.save(new Customer("Freddy", "Mercury"));
-        customerRepository.save(new Customer("Michael", "Jackson"));
-        customerRepository.save(new Customer("Michael2", "Jackson"));
+        userRepository.save(new User("alice.smith@mail.com", " AliceSmith"));
+        userRepository.save(new User("bob.marley@mail.com", "Bob Marley"));
+        userRepository.save(new User("jimmy.page@mail.com", "Jimmy Page"));
+        userRepository.save(new User("freddy.mercury@mail.com", "Freddy Mercury"));
+        userRepository.save(new User("michael.jackson@mail.com", "Michael Jackson"));
 
-        System.out.println("Customers found with findAll():");
+        System.out.println("Users found with findAll():");
         System.out.println("-------------------------------");
-        for (Customer customer : customerRepository.findByLastName("Jackson")) {
-            System.out.println(customer);
+        for (User user : userRepository.findAll()) {
+            System.out.println(user);
         }
         System.out.println();
-
 
     }
 
