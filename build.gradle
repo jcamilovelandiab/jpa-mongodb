@@ -27,7 +27,9 @@ targetCompatibility = 1.8
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-mongodb"
-    testCompile("org.springframework.boot:spring-boot-starter-test")
     compileOnly 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    testCompile("org.springframework.boot:spring-boot-starter-test")
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
 }

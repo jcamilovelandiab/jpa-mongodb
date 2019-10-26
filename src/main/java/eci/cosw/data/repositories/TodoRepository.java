@@ -8,6 +8,6 @@ import java.util.List;
 public interface TodoRepository extends MongoRepository<Todo, String> {
 
     List<Todo> findByDescription(String description);
-    List<Todo> findByResponsible(String responsible);
+    List<Todo> findByResponsibleEmail(String responsibleEmail);
 
 }
