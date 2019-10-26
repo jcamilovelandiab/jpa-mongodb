@@ -13,6 +13,8 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import eci.cosw.config.AppConfiguration;
 import eci.cosw.data.model.Customer;
 import eci.cosw.data.repositories.CustomerRepository;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -29,6 +31,9 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        MongoOperations mongoOperation = (MongoOperations) applicationContext.getBean("mongoTemplate");
+
         userRepository.deleteAll();
 
         userRepository.save(new User("alice.smith@mail.com", " AliceSmith"));
@@ -43,7 +48,12 @@ public class Application implements CommandLineRunner {
             System.out.println(user);
         }
         System.out.println();
+        System.out.println("----- FIND MICHAEL -----");
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is("michael.jackson@mail.com"));
 
+        User user = mongoOperation.findOne(query, User.class);
+        System.out.println(user);
     }
 
 }
